@@ -1,0 +1,51 @@
+body {
+    background-color: powderblue;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    margin-top: 100px;
+}
+
+h1 {
+    color: rgba(11, 168, 103, 0.842);
+}
+
+.yellow-text {
+    font-family: 'Do Hyeon', sans-serif;
+    color: rgb(240, 243, 59);
+    font-size: 300%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.red-text {
+    color: rgb(245, 16, 16);
+}
+
+.link-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0ba867;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.link-button:hover {
+    background-color: #0a8c5c;
+}
+
+.center-gif {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    display: none;
+    z-index: 999;
+}
+
+.hover-trigger:hover + .center-gif {
+    display: block;
+}

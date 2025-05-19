@@ -3,48 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>My Hero Academia</title>
-    <style>
-        body {
-            background-color: powderblue;
-        }
-        h1 {
-            color: rgba(11, 168, 103, 0.842);
-        }
-        .yellow-text {
-            color: rgb(240, 243, 59);
-        }
-        .red-text {
-            color: rgb(245, 16, 16);
-        }
-        .link-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #0ba867;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-        .link-button:hover {
-            background-color: #0a8c5c;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Midoriya</h1>
-    <p class="yellow-text">Smash.</p>
+    <p class="yellow-text hover-trigger">Smash(on mouse)</p>
+    <img src="smash.gif" alt="Smash GIF" class="center-gif">
     <p class="red-text">One For All.</p>
 
-    <!-- 이미지에 링크 -->
-    <a href="https://namu.wiki/w/%EB%AF%B8%EB%8F%84%EB%A6%AC%EC%95%BC%20%EC%9D%B4%EC%A6%88%EC%BF%A0" target="_blank">
-        <img src="미도리야.jpg" alt="Midoriya Image" style="width:300px;">
-    </a>
+    <img id="midoriyaImg" src="미도리야.jpg" alt="Midoriya Image" style="width:300px;">
 
     <!-- 텍스트 버튼으로 추가 링크 -->
-    <br>
+    <br><br>
+    <button id="btnOriginal">Original</button>
+    <button id="btnBlack">Dark Deku</button>
+
+    <br><br>
     <a class="link-button" href="https://namu.wiki/w/%EB%AF%B8%EB%8F%84%EB%A6%AC%EC%95%BC%20%EC%9D%B4%EC%A6%88%EC%BF%A0" target="_blank">
         나무위키에서 미도리야 보기
     </a>
+    <script>
+        const img = document.getElementById('midoriyaImg');
+        const btnOriginal = document.getElementById('btnOriginal');
+        const btnBlack = document.getElementById('btnBlack');
+
+        btnOriginal.addEventListener('click', () => {
+            img.src = '미도리야.jpg';
+            img.alt = 'Midoriya Image';
+            document.body.style.backgroundColor = 'powderblue'; // 원래 배경색으로 복구
+        });
+
+        btnBlack.addEventListener('click', () => {
+            img.src = '흑도리야.gif';  // 흑도리야 GIF 파일명으로 바꾸기
+        img.alt = '흑도리야 GIF';
+        
+
+        // 2초 후 정적 이미지로 변경
+        setTimeout(() => {
+            img.src = '흑도리야.jpg';
+            img.alt = '흑도리야 정적 이미지';
+            document.body.style.backgroundColor = '#111';
+        }, 2000);
+    });
+    </script>
 </body>
 </html>
