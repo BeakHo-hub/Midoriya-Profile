@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>사다리 게임</title>
+  <style>
+    body { font-family: 'Arial'; padding: 20px; }
+    input, button { margin: 5px; }
+    canvas { border: 1px solid #000; display: block; margin-top: 10px; }
+    #result { margin-top: 10px; font-weight: bold; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h2>시각적 사다리 게임</h2>
+  <div>
+    참가자 이름 (쉼표로 구분): <input type="text" id="names" value="지원,철수,영희">
+  </div>
+  <div>
+    결과 항목 (쉼표로 구분): <input type="text" id="results" value="커피,벌칙,치킨">
+  </div>
+  <button onclick="generateLadder()">사다리 생성</button>
+  <div id="buttons"></div>
+  <canvas id="ladder" width="600" height="500"></canvas>
+  <div id="result"></div>
+
+  <script>
+    const canvas = document.getElementById('ladder');
+    const ctx = canvas.getContext('2d');
+    const spacingY = 30;
+    const totalRows = 15;
+    let spacingX = 0;
+    let columns = 0;
+    let ladders = [];
+    let names = [];
+    let results = [];
+
+    function generateLadder() {
+      const nameInput = document.getElementById("names").value.trim();
+      const resultInput = document.getElementById("results").value.trim();
+
+      names = nameInput.split(',').map(n => n.trim());
+      results = resultInput.split(',').map(r => r.trim());
+
+      if (names.length !== results.length) {
+        alert("참가자 수와 결과 수가 같아야 합니다.");
+        return;
+      }
+
+      columns = names.length;
+      spacingX = canvas.width / (columns + 1);
+      ladders = [];
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 세로줄
+      for (let i = 1; i <= columns; i++) {
+        const x = spacingX * i;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+        // 이름
+        ctx.fillText(names[i - 1], x - 15, 15);
+        // 결과
+        ctx.fillText(results[i - 1], x - 15, canvas.height - 5);
+      }
+
+      // 랜덤 가로줄
+      for (let y = 1; y < totalRows; y++) {
+        if (Math.random() < 0.7) {
+          const col = Math.floor(Math.random() * (columns - 1)) + 1;
+          const x1 = spacingX * col;
+          const x2 = spacingX * (col + 1);
+          const yPos = y * spacingY;
+          ladders.push({ x1, x2, y: yPos });
+
+          ctx.beginPath();
+          ctx.moveTo(x1, yPos);
+          ctx.lineTo(x2, yPos);
+          ctx.stroke();
+        }
+      }
+
+      // 버튼 생성
+      const btnDiv = document.getElementById("buttons");
+      btnDiv.innerHTML = "";
+      for (let i = 0; i < names.length; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = `${names[i]} 시작`;
+        btn.onclick = () => startLadder(i);
+        btnDiv.appendChild(btn);
+      }
+
+      document.getElementById("result").innerText = "";
+    }
+
+    function startLadder(startCol) {
+      let x = spacingX * (startCol + 1);
+      let y = 0;
+      let path = [{x, y}];
+
+      for (let row = 0; row < totalRows; row++) {
+        y += spacingY;
+
+        for (let l of ladders) {
+          if (Math.abs(y - l.y) < 2) {
+            if (Math.abs(x - l.x1) < 2) {
+              x = l.x2;
+              break;
+            } else if (Math.abs(x - l.x2) < 2) {
+              x = l.x1;
+              break;
+            }
+          }
+        }
+        path.push({x, y});
+      }
+
+      animatePath(path, startCol);
+    }
+
+    function animatePath(path, colIndex) {
+      let i = 0;
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(path[0].x, path[0].y);
+
+      const interval = setInterval(() => {
+        i++;
+        if (i >= path.length) {
+          clearInterval(interval);
+          ctx.lineWidth = 1;
+          const destIndex = Math.round(path[path.length - 1].x / spacingX) - 1;
+          const result = results[destIndex];
+          document.getElementById("result").innerText = `👉 ${names[colIndex]} → ${result}`;
+          return;
+        }
+        ctx.lineTo(path[i].x, path[i].y);
+        ctx.stroke();
+      }, 80);
+    }
+  </script>
+</body>
+</html>
