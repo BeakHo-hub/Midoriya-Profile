@@ -1,67 +1,247 @@
-<!--
-  김지원 | Retro Cotton-Candy Portfolio (v29)
-  About section: profile starts centered; click → profile slides left, info fades in.
--->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="게임 기획자 김지원의 레트로 포트폴리오">
   <title>김지원 | Blue Cotton-Candy Arcade</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f9fbff;--b:#b6e4ff;--bd:#8ccbff;--c:#d6f4ff;--lav:#d9d6ff;--t:#2d4052;--px:4px;--cur:url('img/default.png') 0 0,auto;--ptr:url('img/pointer.png') 0 0,pointer}
+    :root{
+      --bg:#f9fbff; --b:#b6e4ff; --bd:#8ccbff; --c:#d6f4ff; --lav:#d9d6ff;
+      --t:#2d4052;  --px:4px;
+      --cur:url('img/default.png') 0 0, auto;
+      --ptr:url('img/pointer.png') 0 0, pointer;
+    }
     *{box-sizing:border-box;margin:0}
     html,body{height:100%}
-    body{font-family:'Press Start 2P',monospace;background:var(--bg);color:var(--t);cursor:var(--cur)}body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(45deg,rgba(255,255,255,.15)0 2px,transparent 2px 6px)}a{text-decoration:none;cursor:var(--ptr)}
-    .px{border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav)}.no-top{border-top:none!important;box-shadow:none!important}.no-bot{border-bottom:none!important;box-shadow:none!important}
-    /* intro */
-    #intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--bd);color:#fff;z-index:3000}#intro h1{font-size:2.3rem;margin-bottom:2rem}#press{font-size:1rem;animation:blink 1s steps(1,end) infinite;cursor:var(--ptr)}@keyframes blink{50%{opacity:0}}#intro.fade{animation:fade 1s forwards}@keyframes fade{to{opacity:0;visibility:hidden}}
-    /* header */
-    header{height:65vh;background:var(--b);padding-left:5vw;display:flex;flex-direction:column;justify-content:center;position:relative}.coin{position:absolute;top:20px;right:20px;width:80px;height:80px;animation:spin 4s linear infinite;cursor:var(--ptr)}@keyframes spin{to{transform:rotateY(360deg)}}header h1{font-size:2.2rem;color:#fff;margin-bottom:1rem}.tag{font-size:.8rem;max-width:520px;color:#fff}
-    /* nav */
-    nav{background:var(--b);padding:.8rem 2vw;display:flex;gap:1.5rem;box-shadow:0 2px 6px #c4ecff}.nav-fixed{position:fixed;top:0;left:0;right:0;z-index:1200}.btn{display:inline-block;padding:.5rem 1.5rem;background:#fff;color:var(--b);border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);transition:.15s}.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--lav);background:var(--b);color:#fff}
-    section{padding:4rem 5vw}h2{color:var(--b);font-size:1.1rem;margin-bottom:1.5rem}
-    /* About animated */
-    .about-flex{display:flex;flex-direction:column;align-items:center;gap:2rem;transition:.6s ease;text-align:center}
-    .about-flex.active{flex-direction:row;align-items:flex-start;text-align:left}
-    .profile{width:180px;height:180px;border-radius:50%;object-fit:cover;border:6px solid var(--lav);cursor:var(--ptr);transition:transform .8s cubic-bezier(.25,1.5,.5,1);}
-    .about-flex.moved .profile{transform:translateX(-80px);}
-    .info{list-style:none;opacity:0;visibility:hidden;transform:translateX(20px);transition:opacity .6s ease,transform .6s ease;}
-    .about-flex.moved .info{opacity:1;visibility:visible;transform:translateX(0);}
-    /* skills horizontal etc (unchanged from v28) */
-    .skill-bar{display:flex;gap:1.5rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
-    .skill-bar li{padding:.6rem 1.5rem;background:var(--c);border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);cursor:var(--ptr);list-style:none;position:relative}
+    body{
+      font-family:'Press Start 2P',monospace;
+      background:var(--bg); color:var(--t); cursor:var(--cur);
+    }
+    body::after{
+      content:""; position:fixed; inset:0; pointer-events:none;
+      background:repeating-linear-gradient(45deg,rgba(255,255,255,.15)0 2px,transparent 2px 6px);
+    }
+    a{cursor:var(--ptr); text-decoration:none}
+    .px{border:var(--px) solid var(--b); box-shadow:4px 4px 0 var(--lav)}
+    .no-top{border-top:none!important; box-shadow:none!important}
+    .no-bot{border-bottom:none!important; box-shadow:none!important}
+
+    /* ─── Intro ─── */
+    #intro{position:fixed;inset:0;display:flex;flex-direction:column;
+      justify-content:center;align-items:center;background:var(--bd);
+      color:#fff;z-index:3000}
+    #intro h1{font-size:2.3rem;margin-bottom:2rem}
+    #press{font-size:1rem;animation:blink 1s steps(1,end) infinite;
+      cursor:var(--ptr)}
+    @keyframes blink{50%{opacity:0}}
+    #intro.fade{animation:fade 1s forwards}
+    @keyframes fade{to{opacity:0;visibility:hidden}}
+
+    /* ─── Header ─── */
+    header{height:65vh;background:var(--b);padding-left:5vw;
+      display:flex;flex-direction:column;justify-content:center;position:relative}
+    .coin{position:absolute;top:20px;right:20px;width:80px;height:80px;
+      animation:spin 4s linear infinite;cursor:var(--ptr)}
+    @keyframes spin{to{transform:rotateY(360deg)}}
+    header h1{font-size:2.2rem;color:#fff;margin-bottom:1rem}
+    .tag{font-size:.8rem;max-width:520px;color:#fff}
+
+    /* ─── Nav ─── */
+    nav{background:var(--b);padding:.8rem 2vw;display:flex;gap:1.5rem;
+      box-shadow:0 2px 6px #c4ecff}
+    .nav-fixed{position:fixed;top:0;left:0;right:0;z-index:1200}
+    .btn{display:inline-block;padding:.5rem 1.4rem;background:#fff;color:var(--b);
+      border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);transition:.15s}
+    .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--lav);
+      background:var(--b);color:#fff}
+
+    section{padding:4rem 5vw}
+    h2{color:var(--b);font-size:1.1rem;margin-bottom:1.5rem}
+
+    /* ─── About (profile bounce) ─── */
+    .about-flex{display:flex;flex-direction:column;align-items:center;
+      gap:2rem;transition:.6s;text-align:center}
+    .about-flex.moved{flex-direction:row;align-items:flex-start;text-align:left}
+    .profile{width:180px;height:180px;border-radius:50%;
+      object-fit:cover;border:6px solid var(--lav);cursor:var(--ptr);
+      transition:transform .9s cubic-bezier(.25,1.5,.5,1)}
+    .about-flex.moved .profile{transform:translateX(-80px)}
+    .info{list-style:none;opacity:0;visibility:hidden;transform:translateX(30px);
+      transition:opacity .6s ease, transform .6s ease}
+    .about-flex.moved .info{opacity:1;visibility:visible;transform:translateX(0)}
+
+    /* ─── Skills (horizontal bar) ─── */
+    .skill-bar{display:flex;gap:1.2rem;justify-content:center;margin-bottom:2rem;
+      flex-wrap:wrap}
+    .skill-bar li{padding:.6rem 1.4rem;background:var(--c);
+      border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);
+      cursor:var(--ptr);position:relative;list-style:none}
     .skill-bar li.selected{background:var(--b);color:#fff}
-    .skill-bar li.selected::after{content:'▼';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);color:var(--b)}
-    .skill-desc-large{background:var(--c);border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);min-height:120px;padding:1.5rem;text-align:center}
-    /* projects */
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.5rem}.card{cursor:var(--ptr)}.coin-card{width:180px;height:180px;perspective:1000px}.coin-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s}.card:hover .coin-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:.8rem;background:var(--b);color:#fff;border:var(--px) solid var(--b)}.back{transform:rotateY(180deg);background:var(--c)}
-    footer{padding:2rem 5vw;font-size:.75rem;color:var(--lav)}@media(max-width:600px){header{align-items:center;text-align:center;padding-left:0}nav{justify-content:center}.about-flex.active .profile{transform:translateX(0)}.about-flex{gap:1rem}}
-  {0%{transform:translateX(-60px)}70%{transform:translateX(20px)}100%{transform:translateX(0)}}
-</style>
+    .skill-bar li.selected::after{content:'▼';position:absolute;bottom:-10px;
+      left:50%;transform:translateX(-50%);color:var(--b)}
+    .skill-desc{background:var(--c);border:var(--px) solid var(--b);
+      box-shadow:4px 4px 0 var(--lav);min-height:120px;padding:1.5rem;text-align:center}
+
+    /* ─── Projects (flip coins) ─── */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+      gap:1.5rem}
+    .card{cursor:var(--ptr)}
+    .coin-card{width:180px;height:180px;perspective:1000px}
+    .coin-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;
+      transition:transform .8s}
+    .card:hover .coin-inner{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;
+      justify-content:center;text-align:center;padding:.8rem;background:var(--b);
+      color:#fff;border:var(--px) solid var(--b)}
+    .back{transform:rotateY(180deg);background:var(--c)}
+
+    /* ─── Modal (loading) ─── */
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+      justify-content:center;align-items:center;z-index:2500}
+    .modal.show{display:flex}
+    .modal-box{width:80vw;max-width:880px;height:80vh;padding:3rem;background:var(--b);
+      color:#fff;border:var(--px) solid var(--b);box-shadow:4px 4px 0 var(--lav);
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      transform:scale(.5);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+    .modal.show .modal-box{transform:scale(1)}
+    .loader{width:70%;height:24px;border:var(--px) solid #fff;margin-bottom:1rem}
+    .fill{height:100%;width:0;background:#fff;transition:width 1.5s}
+
+    footer{padding:2rem 5vw;font-size:.75rem;color:var(--lav)}
+    @media(max-width:600px){
+      header{padding-left:0;align-items:center;text-align:center}
+      .about-flex.moved .profile{transform:translateX(0)}
+    }
+  </style>
 </head>
 <body>
-<div id="intro"><h1>★ PORTFOLIO START ★</h1><div id="press">PRESS&nbsp;START</div></div>
-<audio id="beep"><source src="beep.mp3" type="audio/mpeg"></audio>
-<header class="px"><img src="img/coin.png" class="coin" alt="coin"><h1>김지원</h1><p class="tag">"플레이어로써 기획하는 게임플래너 김지원입니다."</p></header>
-<nav id="nav" class="px"><a class="btn" href="#about">About</a><a class="btn" href="#projects">Projects</a><a class="btn" href="#contact">Contact</a></nav>
-<section id="about" class="px no-bot"><h2>About Me</h2><div id="aboutFlex" class="about-flex"><img id="profileImg" src="img/profile.jpg" class="profile" alt="profile"><ul class="info"><li>나이: 만 22세</li><li>학력: ○○대학교</li><li>전화: 010-1234-5678</li></ul></div></section>
-<section id="skills" class="px no-top"><h2>Skills &amp; Tools</h2><ul id="skillBar" class="skill-bar"><li class="selected" data-desc="엑셀 함수, 피벗테이블, 자동화">Excel</li><li data-desc="Figma 프로토타입 & Auto-Layout">Figma</li><li data-desc="Notion 데이터베이스·API">Notion</li><li data-desc="Live2D 모델링·파츠링크">Live2D</li></ul><div id="skillDesc" class="skill-desc-large">엑셀 함수, 피벗테이블, 자동화</div></section>
-<section id="projects" class="px"><h2>Projects</h2><div class="grid"><div class="card"><div class="coin-card"><div class="coin-inner"><div class="face">타워 디펜스</div><div class="face back">click</div></div></div></div><div class="card"><div class="coin-card"><div class="coin-inner"><div class="face">모바일 퍼즐</div><div class="face back">click</div></div></div></div></div></section>
-<section id="contact" class="px"><h2>Contact</h2><p>Email: <a href="mailto:jiwon020907@gmail.com">jiwon020907@gmail.com</a></p></section>
-<footer class="px">&copy; 2025 김지원</footer>
+  <!-- Intro -->
+  <div id="intro"><h1>★ PORTFOLIO START ★</h1><div id="press">PRESS&nbsp;START</div></div>
+  <audio id="beep"><source src="beep.mp3" type="audio/mpeg"></audio>
+
+  <!-- Header -->
+  <header class="px">
+    <img src="img/coin.png" class="coin" alt="coin">
+    <h1>김지원</h1><p class="tag">"플레이어로써 기획하는 게임플래너 김지원입니다."</p>
+  </header>
+
+  <!-- Nav -->
+  <nav id="nav" class="px">
+    <a class="btn" href="#about">About</a>
+    <a class="btn" href="#projects">Projects</a>
+    <a class="btn" href="#contact">Contact</a>
+  </nav>
+
+  <!-- About -->
+  <section id="about" class="px no-bot">
+    <h2>About Me</h2>
+    <div id="aboutFlex" class="about-flex">
+      <img id="profileImg" src="img/profile.jpg" alt="profile" class="profile">
+      <ul class="info">
+        <li>나이: 만 22세</li>
+        <li>학력: ○○대학교</li>
+        <li>전화: 010-1234-5678</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="px no-top">
+    <h2>Skills &amp; Tools</h2>
+    <ul id="skillBar" class="skill-bar">
+      <li class="selected" data-desc="엑셀 함수, 피벗테이블, 자동화">Excel</li>
+      <li data-desc="Figma 프로토타입 & Auto-Layout">Figma</li>
+      <li data-desc="Notion 데이터베이스·API">Notion</li>
+      <li data-desc="Live2D 모델링·파츠링크">Live2D</li>
+    </ul>
+    <div id="skillDesc" class="skill-desc">엑셀 함수, 피벗테이블, 자동화</div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="px">
+    <h2>Projects</h2>
+    <div class="grid">
+      <div class="card"><div class="coin-card"><div class="coin-inner">
+        <div class="face">타워 디펜스</div><div class="face back">click</div>
+      </div></div></div>
+      <div class="card"><div class="coin-card"><div class="coin-inner">
+        <div class="face">모바일 퍼즐</div><div class="face back">click</div>
+      </div></div></div>
+      <div class="card"><div class="coin-card"><div class="coin-inner">
+        <div class="face">Live2D</div><div class="face back">click</div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="px">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:jiwon020907@gmail.com">jiwon020907@gmail.com</a></p>
+  </section>
+
+  <footer class="px">&copy; 2025 김지원</footer>
+
+  <!-- Project Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-box px">
+      <div id="loaderWrap">
+        <div class="loader"><div class="fill" id="fill"></div></div>
+        <div id="loaderLabel">loading…</div>
+      </div>
+      <div id="modalContent" style="display:none"><p>응애</p></div>
+    </div>
+  </div>
+
 <script>
-/* intro */
-const intro=document.getElementById('intro');const beep=document.getElementById('beep');intro.addEventListener('click',()=>{intro.classList.add('fade');beep.play()});window.addEventListener('keydown',e=>{if(['Enter','Space'].includes(e.code))intro.classList.add('fade')});
-/* nav */
-const nav=document.getElementById('nav'),header=document.querySelector('header');const fix=()=>window.scrollY>=header.offsetHeight?nav.classList.add('nav-fixed'):nav.classList.remove('nav-fixed');['scroll','resize'].forEach(ev=>window.addEventListener(ev,fix));fix();
-/* skills */
-const bar=document.getElementById('skillBar'),items=[...bar.children],desc=document.getElementById('skillDesc');let idx=0;function sel(n){items[idx].classList.remove('selected');idx=(n+items.length)%items.length;items[idx].classList.add('selected');desc.textContent=items[idx].dataset.desc}items.forEach((li,i)=>li.addEventListener('mouseenter',()=>sel(i)));window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')sel(idx+1);if(e.key==='ArrowLeft')sel(idx-1)});
-/* about profile click */
-const aboutFlex=document.getElementById('aboutFlex');
-aboutFlex.addEventListener('click',()=>aboutFlex.classList.toggle('moved'));
+/* Intro */
+document.getElementById('intro').addEventListener('click', e=>{
+  e.currentTarget.classList.add('fade'); document.getElementById('beep').play();
+});
+window.addEventListener('keydown', e=>{
+  if(['Enter','Space'].includes(e.code)) document.getElementById('intro').classList.add('fade');
+});
+
+/* Nav fix */
+const nav=document.getElementById('nav'), header=document.querySelector('header');
+const fixNav=()=> window.scrollY>=header.offsetHeight ? nav.classList.add('nav-fixed') : nav.classList.remove('nav-fixed');
+['scroll','resize'].forEach(ev=>window.addEventListener(ev,fixNav)); fixNav();
+
+/* Skills bar */
+const items=[...document.querySelectorAll('#skillBar li')], desc=document.getElementById('skillDesc');
+let idx=0;
+function select(n){
+  items[idx].classList.remove('selected');
+  idx=(n+items.length)%items.length;
+  items[idx].classList.add('selected');
+  desc.textContent=items[idx].dataset.desc;
+}
+items.forEach((li,i)=>li.addEventListener('mouseenter',()=>select(i)));
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')select(idx+1);
+  if(e.key==='ArrowLeft') select(idx-1);
+});
+
+/* About profile bounce */
+const flex=document.getElementById('aboutFlex');
+document.getElementById('profileImg').addEventListener('click',()=>flex.classList.toggle('moved'));
+
+/* Modal loader */
+const modal=document.getElementById('modal'),
+      fill=document.getElementById('fill'),
+      label=document.getElementById('loaderLabel'),
+      content=document.getElementById('modalContent');
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{
+  modal.classList.add('show'); label.textContent='loading…'; fill.style.width='0%';
+  setTimeout(()=>fill.style.width='100%',50);
+  setTimeout(()=>label.textContent='complete!',1550);
+  setTimeout(()=>{document.getElementById('loaderWrap').style.display='none'; content.style.display='block';},2350);
+}));
+modal.addEventListener('click',()=>{
+  modal.classList.remove('show');
+  document.getElementById('loaderWrap').style.display='block';
+  content.style.display='none';
+});
 </script>
 </body>
 </html>
